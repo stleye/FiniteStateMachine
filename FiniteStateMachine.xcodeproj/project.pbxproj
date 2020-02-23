@@ -13,6 +13,7 @@
 		9E69BB652402E05100DA0064 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB632402E05100DA0064 /* Main.storyboard */; };
 		9E69BB672402E05300DA0064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB662402E05300DA0064 /* Assets.xcassets */; };
 		9E69BB6A2402E05300DA0064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB682402E05300DA0064 /* LaunchScreen.storyboard */; };
+		9E69BB722402E08400DA0064 /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		9E69BB662402E05300DA0064 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E69BB692402E05300DA0064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E69BB6B2402E05300DA0064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiniteStateMachine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				9E69BB5D2402E05100DA0064 /* AppDelegate.swift */,
 				9E69BB5F2402E05100DA0064 /* SceneDelegate.swift */,
 				9E69BB612402E05100DA0064 /* ViewController.swift */,
+				9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */,
 				9E69BB632402E05100DA0064 /* Main.storyboard */,
 				9E69BB662402E05300DA0064 /* Assets.xcassets */,
 				9E69BB682402E05300DA0064 /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E69BB722402E08400DA0064 /* FiniteStateMachine.swift in Sources */,
 				9E69BB622402E05100DA0064 /* ViewController.swift in Sources */,
 				9E69BB5E2402E05100DA0064 /* AppDelegate.swift in Sources */,
 				9E69BB602402E05100DA0064 /* SceneDelegate.swift in Sources */,
