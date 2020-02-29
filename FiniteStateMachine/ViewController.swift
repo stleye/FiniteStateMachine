@@ -13,35 +13,33 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        enum FSMStates {
-            case A1
-            case A2
-        }
+        let symbolsFsm1: Set<FiniteStateMachine.Symbol> = ["a", "b", "c"]
+        let stateA1 = FiniteStateMachine.State(name: "A1")
+        let stateA2 = FiniteStateMachine.State(name: "A2")
+        var fsm1 = FiniteStateMachine(initialState: stateA1,
+                                      symbols: symbolsFsm1,
+                                      transitions: [FiniteStateMachine.Transition(origin: stateA1, input: "a", destination: stateA2),
+                                                    FiniteStateMachine.Transition(origin: stateA2, input: "c", destination: stateA2),
+                                                    FiniteStateMachine.Transition(origin: stateA2, input: "b", destination: stateA1)])
 
-        enum FSMEvents {
-            case a
-            case b
-            case c
-        }
+        let symbolsFsm2: Set<FiniteStateMachine.Symbol> = ["a", "b", "d"]
+        let stateB1 = FiniteStateMachine.State(name: "B1")
+        let stateB2 = FiniteStateMachine.State(name: "B2")
+        let stateB3 = FiniteStateMachine.State(name: "B3")
+        var fsm2 = FiniteStateMachine(initialState: stateB1,
+                                      symbols: symbolsFsm2,
+                                      transitions: [FiniteStateMachine.Transition(origin: stateB1, input: "a", destination: stateB2),
+                                                    FiniteStateMachine.Transition(origin: stateB2, input: "d", destination: stateB3),
+                                                    FiniteStateMachine.Transition(origin: stateB3, input: "b", destination: stateB1)])
 
-        let myFSM = FiniteStateMachine(initialState: FSMStates.A1,
-                                       states: [.A1, .A2],
-                                       symbols: [.a, .b],
-                                       transitions: [FiniteStateMachine.Transition(origin: .A1, input: FSMEvents.a, destination: .A2),
-                                                     FiniteStateMachine.Transition(origin: .A2, input: .c, destination: .A2),
-                                                     FiniteStateMachine.Transition(origin: .A2, input: .b, destination: .A1)])
+        let composed = fsm1.composeInParallel(with: fsm2)
         
-        myFSM?.addEvent({ _ in 
-            print ("Bla bla")
-        }, to: FiniteStateMachine.Transition(origin: .A1, input: .a, destination: .A2))
+        let a = 2
         
-        let currentState = myFSM?.receive(input: .a).receive(input: .b).currentState
-        
-        //print (myFSM?.receiveEvent(.a)?.receiveEvent(.b).currentState)
+//        fsm1.addEvent({ _ in
+//            print ("Bla bla")
+//        }, to: FiniteStateMachine.Transition(origin: state1, input: .a, destination: state2))
 
     }
 
-    
-    
 }
-
