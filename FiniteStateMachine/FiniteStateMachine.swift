@@ -13,6 +13,10 @@ struct FiniteStateMachine {
     struct State: Hashable {
         var name: String
 
+        var description: String {
+            return self.name
+        }
+
         init(name: String) {
             self.name = name
         }
@@ -32,27 +36,28 @@ struct FiniteStateMachine {
     typealias Event = (Transition) -> Void
 
     private(set) var currentState: State
+    private(set) var initialState: State
 
-    private var initialState: State
     private var states: Set<State>
     private var symbols: Set<Symbol>
     private var transitions: [Transition]
     private var events: [Transition: Event]
 
-    init(initialState: State, symbols: Set<Symbol>, transitions: [Transition]) {
+    init(initialState: State, transitions: [Transition]) {
         self.initialState = initialState
         self.states = [initialState]
+        self.symbols = []
         for transition in transitions {
             self.states.insert(transition.origin)
             self.states.insert(transition.destination)
+            self.symbols.insert(transition.input)
         }
-        self.symbols = symbols
         self.transitions = transitions
         self.currentState = initialState
         self.events = [:]
     }
 
-    mutating func receive(input: Symbol) -> FiniteStateMachine {
+    mutating func receive(input: Symbol) {
         for transition in transitions {
             if transition.origin == self.currentState && transition.input == input {
                 self.currentState = transition.destination
@@ -60,7 +65,6 @@ struct FiniteStateMachine {
                 break
             }
         }
-        return self
     }
 
     mutating func addEvent(_ event: @escaping Event, to transition: Transition) {
@@ -69,7 +73,6 @@ struct FiniteStateMachine {
 
     func composeInParallel(with fsm: FiniteStateMachine) -> FiniteStateMachine {
         let initialState = State(state1: self.initialState, state2: fsm.initialState)
-        let symbols = self.symbols.union(fsm.symbols)
         var transitions: [Transition] = []
         for transitionSelf in self.transitions {
             for transitionParam in fsm.transitions {
@@ -99,9 +102,7 @@ struct FiniteStateMachine {
                 }
             }
         }
-        return FiniteStateMachine(initialState: initialState,
-                                  symbols: symbols,
-                                  transitions: transitions)
+        return FiniteStateMachine(initialState: initialState, transitions: transitions)
     }
 
 }
