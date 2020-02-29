@@ -11,7 +11,7 @@ import Foundation
 struct FiniteStateMachine {
 
     struct State: Hashable {
-        var name: String
+        private(set) var name: String
 
         var description: String {
             return self.name
