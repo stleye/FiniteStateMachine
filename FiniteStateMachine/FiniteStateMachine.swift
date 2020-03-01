@@ -10,9 +10,10 @@ import Foundation
 
 class FiniteStateMachine {
 
+    var variables: Variables
+
     private(set) var currentState: State
     private(set) var initialState: State
-    private(set) var variables: [Variable]
     private(set) var timer: Int
 
     private var states: Set<State>
@@ -22,7 +23,7 @@ class FiniteStateMachine {
     private var statesTimer: Timer?
     private var stateConditionTimeTolerance: TimeInterval
 
-    init(initialState: State, transitions: [Transition], variables: [Variable] = [], stateConditionTimeTolerance: TimeInterval = 0.5) {
+    init(initialState: State, transitions: [Transition], variables: Variables = Variables(), stateConditionTimeTolerance: TimeInterval = 0.5) {
         self.initialState = initialState
         self.states = [initialState]
         self.symbols = []
@@ -61,15 +62,16 @@ class FiniteStateMachine {
         for transitionSelf in self.transitions {
             for transitionParam in fsm.transitions {
                 if transitionSelf.input == transitionParam.input {
-                    transitions.append(createTransitionFrom(transition1: transitionSelf,
-                                                            and: transitionParam))
+                    transitions.append(createTransitionFrom(transition1: transitionSelf, and: transitionParam))
                 }
             }
             if !fsm.symbols.contains(transitionSelf.input) {
                 for state in fsm.states {
                     let transition = Transition(from: State(state1: transitionSelf.origin, state2: state),
                                                 to: State(state1: transitionSelf.destination, state2: state),
-                                                through: transitionSelf.input)
+                                                through: transitionSelf.input,
+                                                condition: transitionSelf.condition,
+                                                action: transitionSelf.action)
                     transitions.append(transition)
                 }
             }
@@ -79,15 +81,16 @@ class FiniteStateMachine {
                 for state in self.states {
                     let transition = Transition(from: State(state1: state, state2: transitionFsm.origin),
                                                 to: State(state1: state, state2: transitionFsm.destination),
-                                                through: transitionFsm.input)
+                                                through: transitionFsm.input,
+                                                condition: transitionFsm.condition,
+                                                action: transitionFsm.action)
                     transitions.append(transition)
                 }
             }
         }
-        let newVariables = self.mergeVariables(self.variables, fsm.variables)
         return FiniteStateMachine(initialState: initialState,
                                   transitions: transitions,
-                                  variables: newVariables,
+                                  variables: self.variables.merge(with: fsm.variables),
                                   stateConditionTimeTolerance: min(self.stateConditionTimeTolerance, fsm.stateConditionTimeTolerance))
     }
 
@@ -100,14 +103,6 @@ class FiniteStateMachine {
                                                         repeats: true)
         }
         self.timer = 0
-    }
-
-    func valueForVariable(_ name: String) -> Any? {
-        return self.variables.first(where: { $0.name == name })?.value
-    }
-
-    func setVariable(named: String, withValue value: Any) {
-        //self.variables
     }
 
     @objc private func incrementTimeOneSecond() {
@@ -143,21 +138,6 @@ class FiniteStateMachine {
                           through: transition1.input,
                           condition: condition,
                           action: action)
-    }
-
-    private func mergeVariables(_ variables1: [Variable], _ variables2: [Variable]) -> [Variable] {
-        var dictionary: [String: Any] = [:]
-        var result: [Variable] = []
-        for variable in variables2 {
-            dictionary[variable.name] = variable.value
-        }
-        for variable in variables1 {
-            dictionary[variable.name] = variable.value
-        }
-        for (key, value) in dictionary {
-            result.append(Variable(name: key, value: value))
-        }
-        return result
     }
 
 }
@@ -237,9 +217,40 @@ extension FiniteStateMachine {
         }
     }
 
-    struct Variable {
-        var name: String
-        var value: Any
+    struct Variables {
+
+        private var variables: [String: Any] = [:]
+
+        init(_ values: (String, Any)...) {
+            for value in values {
+                self.variables[value.0] = value.1
+            }
+        }
+
+        func valueFor(_ name: String) -> Any? {
+            return self.variables[name]
+        }
+
+        func intValueFor(_ name: String) -> Int {
+            return self.valueFor(name) as! Int
+        }
+
+        func stringValueFor(_ name: String) -> String {
+            return self.valueFor(name) as! String
+        }
+
+        mutating func set(value: Any, to name: String) {
+            self.variables[name] = value
+        }
+
+        func merge(with variables: Variables) -> Variables {
+            var result: Variables = variables
+            for (name, value) in self.variables {
+                result.set(value: value, to: name)
+            }
+            return result
+        }
+
     }
 
 }
