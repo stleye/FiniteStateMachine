@@ -14,7 +14,18 @@
 		9E69BB672402E05300DA0064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB662402E05300DA0064 /* Assets.xcassets */; };
 		9E69BB6A2402E05300DA0064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB682402E05300DA0064 /* LaunchScreen.storyboard */; };
 		9E69BB722402E08400DA0064 /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */; };
+		9E93D872240BDAF000072342 /* FiniteStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9E93D874240BDAF000072342 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E69BB522402E05100DA0064 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E69BB592402E05100DA0064;
+			remoteInfo = FiniteStateMachine;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FiniteStateMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,10 +37,20 @@
 		9E69BB692402E05300DA0064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E69BB6B2402E05300DA0064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiniteStateMachine.swift; sourceTree = "<group>"; };
+		9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiniteStateMachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiniteStateMachineTests.swift; sourceTree = "<group>"; };
+		9E93D873240BDAF000072342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		9E69BB572402E05100DA0064 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E93D86C240BDAF000072342 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -43,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				9E69BB5C2402E05100DA0064 /* FiniteStateMachine */,
+				9E93D870240BDAF000072342 /* FiniteStateMachineTests */,
 				9E69BB5B2402E05100DA0064 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */,
+				9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -68,6 +91,15 @@
 				9E69BB6B2402E05300DA0064 /* Info.plist */,
 			);
 			path = FiniteStateMachine;
+			sourceTree = "<group>";
+		};
+		9E93D870240BDAF000072342 /* FiniteStateMachineTests */ = {
+			isa = PBXGroup;
+			children = (
+				9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */,
+				9E93D873240BDAF000072342 /* Info.plist */,
+			);
+			path = FiniteStateMachineTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,6 +122,24 @@
 			productReference = 9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9E93D86E240BDAF000072342 /* FiniteStateMachineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E93D878240BDAF000072342 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */;
+			buildPhases = (
+				9E93D86B240BDAF000072342 /* Sources */,
+				9E93D86C240BDAF000072342 /* Frameworks */,
+				9E93D86D240BDAF000072342 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9E93D875240BDAF000072342 /* PBXTargetDependency */,
+			);
+			name = FiniteStateMachineTests;
+			productName = FiniteStateMachineTests;
+			productReference = 9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -102,6 +152,10 @@
 				TargetAttributes = {
 					9E69BB592402E05100DA0064 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					9E93D86E240BDAF000072342 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 9E69BB592402E05100DA0064;
 					};
 				};
 			};
@@ -119,6 +173,7 @@
 			projectRoot = "";
 			targets = (
 				9E69BB592402E05100DA0064 /* FiniteStateMachine */,
+				9E93D86E240BDAF000072342 /* FiniteStateMachineTests */,
 			);
 		};
 /* End PBXProject section */
@@ -131,6 +186,13 @@
 				9E69BB6A2402E05300DA0064 /* LaunchScreen.storyboard in Resources */,
 				9E69BB672402E05300DA0064 /* Assets.xcassets in Resources */,
 				9E69BB652402E05100DA0064 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E93D86D240BDAF000072342 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +210,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9E93D86B240BDAF000072342 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E93D872240BDAF000072342 /* FiniteStateMachineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9E93D875240BDAF000072342 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E69BB592402E05100DA0064 /* FiniteStateMachine */;
+			targetProxy = 9E93D874240BDAF000072342 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9E69BB632402E05100DA0064 /* Main.storyboard */ = {
@@ -320,6 +398,46 @@
 			};
 			name = Release;
 		};
+		9E93D876240BDAF000072342 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AS2PM2F4J;
+				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
+			};
+			name = Debug;
+		};
+		9E93D877240BDAF000072342 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AS2PM2F4J;
+				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -337,6 +455,15 @@
 			buildConfigurations = (
 				9E69BB6F2402E05300DA0064 /* Debug */,
 				9E69BB702402E05300DA0064 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9E93D878240BDAF000072342 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E93D876240BDAF000072342 /* Debug */,
+				9E93D877240BDAF000072342 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
