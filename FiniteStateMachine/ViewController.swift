@@ -12,66 +12,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let empty = FiniteStateMachine.State(name: "empty")
-//        let full = FiniteStateMachine.State(name: "full")
-//        let transition1 = FiniteStateMachine.Transition(origin: empty,
-//                                                        input: "ingresa persona",
-//                                                        destination: full,
-//                                                        action: { fsm in fsm.variables["counter"] = (fsm.variables["counter"] as! Int) + 1 })
-//        let transition2 = FiniteStateMachine.Transition(origin: full,
-//                                                        input: "ingresa persona",
-//                                                        destination: full,
-//                                                        action: { fsm in fsm.variables["counter"] = (fsm.variables["counter"] as! Int) + 1 })
-//        let transition3 = FiniteStateMachine.Transition(origin: full,
-//                                                        input: "egresa persona",
-//                                                        destination: full,
-//                                                        condition: { fsm in (fsm.variables["counter"] as! Int) > 1 },
-//                                                        action: { fsm in fsm.variables["counter"] = (fsm.variables["counter"] as! Int) - 1 })
-//        let transition4 = FiniteStateMachine.Transition(origin: full,
-//                                                        input: "egresa persona",
-//                                                        destination: empty,
-//                                                        condition: { fsm in (fsm.variables["counter"] as! Int) == 1 },
-//                                                        action: { fsm in fsm.variables["counter"] = (fsm.variables["counter"] as! Int) - 1 })
-//        let local = FiniteStateMachine(initialState: empty, transitions: [transition1, transition2, transition3, transition4], variables: ["counter": 0])
-//        
-//        let alarmaApagada = FiniteStateMachine.State(name: "alarma apagada", condition: { fsm in (fsm.variables["counter"] as! Int) <= 1000 })
-//        let alarmaEncendida = FiniteStateMachine.State(name: "alarma encendida", condition: { fsm in (fsm.variables["counter"] as! Int) > 1000 })
-//        let transitionA1 = FiniteStateMachine.Transition(origin: alarmaApagada,
-//                                                         input: "encender alarma",
-//                                                         destination: alarmaEncendida,
-//                                                         condition: { fsm in (fsm.variables["counter"] as! Int) > 1000 })
-//        let transitionA2 = FiniteStateMachine.Transition(origin: alarmaEncendida,
-//                                                         input: "apagar alarma",
-//                                                         destination: alarmaApagada,
-//                                                         condition: { fsm in (fsm.variables["counter"] as! Int) == 1000 })
-//        let alarma = FiniteStateMachine(initialState: alarmaApagada, transitions: [transitionA1, transitionA2])
-//
-//        let composed = local.composeInParallel(with: alarma)
-//
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "ingresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "ingresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "ingresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "ingresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "ingresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
-//        composed.receive(input: "egresa persona")
-//        print ("\(composed.currentState) + \(String(describing: composed.variables["counter"]))")
 
 //        let bluetoothOn = FiniteStateMachine.State(name: "Bluetooth On")
 //        let bluetoothOff = FiniteStateMachine.State(name: "Bluetooth Off")

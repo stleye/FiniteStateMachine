@@ -51,6 +51,7 @@ class FiniteStateMachine {
             if transition.origin == self.currentState && transition.input == input && transition.condition(self) {
                 self.currentState = transition.destination
                 transition.action(self)
+                self.checkCurrentStateCondition()
                 break
             }
         }
@@ -117,7 +118,7 @@ class FiniteStateMachine {
 
     private func leaveCurrentState() {
         for transition in transitions where transition.origin == self.currentState {
-            if transition.condition(self) {
+            if transition.condition(self) && transition.destination != transition.origin {
                 self.receive(input: transition.input)
                 return
             }

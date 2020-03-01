@@ -12,23 +12,31 @@ import XCTest
 class FiniteStateMachineTests: XCTestCase {
 
     lazy var initialState1 = FiniteStateMachine.State("Initial")
+
     lazy var initialState2 = FiniteStateMachine.State("Initial")
+
     lazy var finalState = FiniteStateMachine.State("Final")
+
     lazy var stateWithCondition = FiniteStateMachine.State("State With Condition", condition: { _ in true })
+
     lazy var composedState = FiniteStateMachine.State(state1: initialState1, state2: finalState)
+
     lazy var transition1 = FiniteStateMachine.Transition(from: initialState1,
                                                          to: finalState,
                                                          through: "a")
+
     lazy var transition2 = FiniteStateMachine.Transition(from: initialState1,
                                                          to: finalState,
                                                          through: "b",
                                                          condition: { fsm in return true },
                                                          action: { fsm in })
+
     lazy var smallFSM1 = FiniteStateMachine(initialState: FiniteStateMachine.State("1"),
                                             transitions: [FiniteStateMachine.Transition("1", "2", "a"),
                                                           FiniteStateMachine.Transition("2", "3", "d"),
                                                           FiniteStateMachine.Transition("3", "1", "c")],
                                             variables: FiniteStateMachine.Variables(("counter", 3)))
+
     lazy var smallFSM2 = FiniteStateMachine(initialState: FiniteStateMachine.State("1'"),
                                             transitions: [FiniteStateMachine.Transition("1'", "2'", "b"),
                                                           FiniteStateMachine.Transition("2'", "3'", "a"),
@@ -36,8 +44,22 @@ class FiniteStateMachineTests: XCTestCase {
                                             variables: FiniteStateMachine.Variables(("counter", 0),
                                                                                     ("greetings", "hello")))
 
+    lazy var storeLimit = 5
+    lazy var storeFSM = FiniteStateMachine(initialState: FiniteStateMachine.State("empty"),
+                                           transitions: [
+                                            FiniteStateMachine.Transition("empty", "full", "enter person",
+                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
+                                            FiniteStateMachine.Transition("full", "full", "enter person",
+                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
+                                            FiniteStateMachine.Transition("full", "full", "exit person",
+                                                                          condition: { fsm in fsm.variables.intValueFor("counter") > 1 },
+                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") - 1, to: "counter") }),
+                                            FiniteStateMachine.Transition("full", "empty", "exit person",
+                                                                          condition: { fsm in fsm.variables.intValueFor("counter") == 1 },
+                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") - 1, to: "counter") })],
+                                           variables: FiniteStateMachine.Variables(("counter", 0)))
+
     override func setUp() {
-        
     }
 
     override func tearDown() {
@@ -124,46 +146,80 @@ class FiniteStateMachineTests: XCTestCase {
     }
 
     func testFSMConditionsAndActions() {
-        let fsm = FiniteStateMachine(initialState: FiniteStateMachine.State("empty"),
-                                     transitions: [
-                                        FiniteStateMachine.Transition("empty", "full", "enter person",
-                                                                      action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
-                                        FiniteStateMachine.Transition("full", "full", "enter person",
-                                                                      action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
-                                        FiniteStateMachine.Transition("full", "full", "exit person",
-                                                                      condition: { fsm in fsm.variables.intValueFor("counter") > 1 },
-                                                                      action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") - 1, to: "counter") }),
-                                        FiniteStateMachine.Transition("full", "empty", "exit person",
-                                                                      condition: { fsm in fsm.variables.intValueFor("counter") == 1 },
-                                                                      action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") - 1, to: "counter") })
-                                        ],
-                                     variables: FiniteStateMachine.Variables(("counter", 0)))
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 0)
-        XCTAssertEqual(fsm.currentState.name, "empty")
-        fsm.receive(input: "enter person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 1)
-        XCTAssertEqual(fsm.currentState.name, "full")
-        fsm.receive(input: "enter person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 2)
-        XCTAssertEqual(fsm.currentState.name, "full")
-        fsm.receive(input: "enter person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 3)
-        XCTAssertEqual(fsm.currentState.name, "full")
-        fsm.receive(input: "exit person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 2)
-        XCTAssertEqual(fsm.currentState.name, "full")
-        fsm.receive(input: "exit person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 1)
-        XCTAssertEqual(fsm.currentState.name, "full")
-        fsm.receive(input: "exit person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 0)
-        XCTAssertEqual(fsm.currentState.name, "empty")
-        fsm.receive(input: "exit person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 0)
-        XCTAssertEqual(fsm.currentState.name, "empty")
-        fsm.receive(input: "enter person")
-        XCTAssertEqual(fsm.variables.intValueFor("counter"), 1)
-        XCTAssertEqual(fsm.currentState.name, "full")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 0)
+        XCTAssertEqual(storeFSM.currentState.name, "empty")
+        storeFSM.receive(input: "enter person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 1)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+        storeFSM.receive(input: "enter person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 2)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+        storeFSM.receive(input: "enter person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 3)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+        storeFSM.receive(input: "exit person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 2)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+        storeFSM.receive(input: "exit person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 1)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+        storeFSM.receive(input: "exit person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 0)
+        XCTAssertEqual(storeFSM.currentState.name, "empty")
+        storeFSM.receive(input: "exit person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 0)
+        XCTAssertEqual(storeFSM.currentState.name, "empty")
+        storeFSM.receive(input: "enter person")
+        XCTAssertEqual(storeFSM.variables.intValueFor("counter"), 1)
+        XCTAssertEqual(storeFSM.currentState.name, "full")
+    }
+
+    func testConditionalStates() {
+        let alarmShouldBeTurnedOn = XCTestExpectation(description: "alarm turned on")
+        let alarmShouldBeTurnedOff = XCTestExpectation(description: "alarm turned off")
+        let alarmOff = FiniteStateMachine.State("alarm off", condition: { fsm in
+            fsm.variables.intValueFor("counter") <= self.storeLimit
+        })
+        let alarmOn = FiniteStateMachine.State("alarm on", condition: { fsm in
+            fsm.variables.intValueFor("counter") > self.storeLimit
+        })
+        let transition1 = FiniteStateMachine.Transition(from: alarmOff,
+                                                        to: alarmOn,
+                                                        through: "turn on alarm",
+                                                        condition: { fsm in
+            fsm.variables.intValueFor("counter") > self.storeLimit
+        }, action: { _ in
+            alarmShouldBeTurnedOn.fulfill()
+        })
+        let transition2 = FiniteStateMachine.Transition(from: alarmOn,
+                                                        to: alarmOff,
+                                                        through: "turn off alarm",
+                                                        condition: { fsm in
+            fsm.variables.intValueFor("counter") == self.storeLimit
+        }, action: { _ in
+            alarmShouldBeTurnedOff.fulfill()
+        })
+        let alarmFSM = FiniteStateMachine(initialState: alarmOff,
+                                          transitions: [transition1, transition2],
+                                          variables: FiniteStateMachine.Variables(("counter", 0)))
+
+        let composed = storeFSM.composeInParallel(with: alarmFSM)
+        composed.receive(input: "enter person")
+        composed.receive(input: "enter person")
+        composed.receive(input: "enter person")
+        composed.receive(input: "enter person")
+        composed.receive(input: "enter person")
+        XCTAssertEqual(composed.variables.intValueFor("counter"), 5)
+        XCTAssertEqual(composed.currentState.name, "full, alarm off")
+        composed.receive(input: "enter person")
+        XCTAssertEqual(composed.variables.intValueFor("counter"), 6)
+        wait(for: [alarmShouldBeTurnedOn], timeout: 1.0)
+        XCTAssertEqual(composed.currentState.name, "full, alarm on")
+        composed.receive(input: "exit person")
+        composed.receive(input: "exit person")
+        XCTAssertEqual(composed.variables.intValueFor("counter"), 4)
+        wait(for: [alarmShouldBeTurnedOff], timeout: 1.0)
+        XCTAssertEqual(composed.currentState.name, "full, alarm off")
     }
 
 //    func testPerformanceExample() {
