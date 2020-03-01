@@ -48,9 +48,12 @@ class FiniteStateMachineTests: XCTestCase {
     lazy var storeFSM = FiniteStateMachine(initialState: FiniteStateMachine.State("empty"),
                                            transitions: [
                                             FiniteStateMachine.Transition("empty", "full", "enter person",
-                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
-                                            FiniteStateMachine.Transition("full", "full", "enter person",
-                                                                          action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter") }),
+                                                                          action: { fsm in
+                                                fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter")
+                                            }),
+                                            FiniteStateMachine.Transition("full", "full", "enter person", action: { fsm in
+                                                fsm.variables.set(value: fsm.variables.intValueFor("counter") + 1, to: "counter")
+                                            }),
                                             FiniteStateMachine.Transition("full", "full", "exit person",
                                                                           condition: { fsm in fsm.variables.intValueFor("counter") > 1 },
                                                                           action: { fsm in fsm.variables.set(value: fsm.variables.intValueFor("counter") - 1, to: "counter") }),
@@ -175,29 +178,23 @@ class FiniteStateMachineTests: XCTestCase {
     }
 
     func testConditionalStates() {
-        let alarmShouldBeTurnedOn = XCTestExpectation(description: "alarm turned on")
-        let alarmShouldBeTurnedOff = XCTestExpectation(description: "alarm turned off")
-        let alarmOff = FiniteStateMachine.State("alarm off", condition: { fsm in
-            fsm.variables.intValueFor("counter") <= self.storeLimit
+        let alarmOff = FiniteStateMachine.State("alarm off", condition: { variables in
+            variables.intValueFor("counter") <= self.storeLimit
         })
-        let alarmOn = FiniteStateMachine.State("alarm on", condition: { fsm in
-            fsm.variables.intValueFor("counter") > self.storeLimit
+        let alarmOn = FiniteStateMachine.State("alarm on", condition: { variables in
+            variables.intValueFor("counter") > self.storeLimit
         })
         let transition1 = FiniteStateMachine.Transition(from: alarmOff,
                                                         to: alarmOn,
                                                         through: "turn on alarm",
                                                         condition: { fsm in
             fsm.variables.intValueFor("counter") > self.storeLimit
-        }, action: { _ in
-            alarmShouldBeTurnedOn.fulfill()
         })
         let transition2 = FiniteStateMachine.Transition(from: alarmOn,
                                                         to: alarmOff,
                                                         through: "turn off alarm",
                                                         condition: { fsm in
             fsm.variables.intValueFor("counter") == self.storeLimit
-        }, action: { _ in
-            alarmShouldBeTurnedOff.fulfill()
         })
         let alarmFSM = FiniteStateMachine(initialState: alarmOff,
                                           transitions: [transition1, transition2],
@@ -213,20 +210,53 @@ class FiniteStateMachineTests: XCTestCase {
         XCTAssertEqual(composed.currentState.name, "full, alarm off")
         composed.receive(input: "enter person")
         XCTAssertEqual(composed.variables.intValueFor("counter"), 6)
-        wait(for: [alarmShouldBeTurnedOn], timeout: 1.0)
         XCTAssertEqual(composed.currentState.name, "full, alarm on")
         composed.receive(input: "exit person")
         composed.receive(input: "exit person")
         XCTAssertEqual(composed.variables.intValueFor("counter"), 4)
-        wait(for: [alarmShouldBeTurnedOff], timeout: 1.0)
         XCTAssertEqual(composed.currentState.name, "full, alarm off")
     }
 
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
+    func testTimedFSM() {
+        let alarmShouldBeTurnedOn = XCTestExpectation(description: "sprinkler turned on")
+        let alarmShouldBeTurnedOff = XCTestExpectation(description: "sprinkler turned off")
+        
+        let timeTurnedOn = 4
+        let timeTurnedOff = 10
+
+        let sprinklerOff = FiniteStateMachine.State("sprinkler off", condition: { variables in
+            variables.timerValueFor("t") < timeTurnedOff
+        })
+        let sprinklerOn = FiniteStateMachine.State("sprinkler on", condition: { variables in
+            variables.timerValueFor("u") < timeTurnedOn
+        })
+        let transition1 = FiniteStateMachine.Transition(from: sprinklerOff,
+                                                        to: sprinklerOn,
+                                                        through: "open tap",
+                                                        condition: { fsm in
+            fsm.variables.timerValueFor("t") == timeTurnedOff
+        }, action: { fsm in
+            alarmShouldBeTurnedOn.fulfill()
+            fsm.variables.resetTimer("u")
+        })
+        let transition2 = FiniteStateMachine.Transition(from: sprinklerOn,
+                                                        to: sprinklerOff,
+                                                        through: "close tap",
+                                                        condition: { fsm in
+            fsm.variables.timerValueFor("u") == timeTurnedOn
+        }, action: { fsm in
+            alarmShouldBeTurnedOff.fulfill()
+            fsm.variables.resetTimer("t")
+        })
+        let fsm = FiniteStateMachine(initialState: sprinklerOff,
+                                     transitions: [transition1, transition2])
+        fsm.variables.resetTimer("t")
+        fsm.variables.resetTimer("u")
+        XCTAssertEqual(fsm.currentState, sprinklerOff)
+        wait(for: [alarmShouldBeTurnedOn], timeout: 10)
+        XCTAssertEqual(fsm.currentState, sprinklerOn)
+        wait(for: [alarmShouldBeTurnedOff], timeout: 10)
+        XCTAssertEqual(fsm.currentState, sprinklerOff)
+    }
 
 }
