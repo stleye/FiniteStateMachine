@@ -19,7 +19,7 @@ class FiniteStateMachine {
     private var transitions: [Transition]
     private var transitionTimer: Timer?
 
-    init(initialState: State, transitions: [Transition], variables: Variables = Variables(), stateConditionTimeTolerance: TimeInterval = 0.5) {
+    init(initialState: State, transitions: [Transition], variables: Variables = Variables()) {
         self.initialState = initialState
         self.states = [initialState]
         self.symbols = []
