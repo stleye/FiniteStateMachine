@@ -9,67 +9,68 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    enum Light {
+        case red
+        case yellow
+        case green
+    }
+
+    @IBOutlet weak var redView: UIView!
+    @IBOutlet weak var yellowView: UIView!
+    @IBOutlet weak var greenView: UIView!
+
+    lazy var red = FiniteStateMachine.State("red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 4))
+    lazy var redyellowgreen = FiniteStateMachine.State("red yellow green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 2))
+    lazy var greenyellowred = FiniteStateMachine.State("green yellow red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 2))
+    lazy var green = FiniteStateMachine.State("green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 6))
+
+    lazy var fsm = FiniteStateMachine(initialState: red,
+                                      transitions: [
+        FiniteStateMachine.Transition(from: red, to: redyellowgreen, through: "switch", condition: { (fsm) -> Bool in
+            fsm.variables.timerValueFor("t") == 4
+        }, action: { fsm in
+            fsm.variables.resetTimer("t")
+            self.turnOn(.yellow)
+        }),
+        FiniteStateMachine.Transition(from: redyellowgreen, to: green, through: "switch", condition: { (fsm) -> Bool in
+            fsm.variables.timerValueFor("t") == 3
+        }, action: { fsm in
+            fsm.variables.resetTimer("t")
+            self.turnOn(.green)
+        }),
+        FiniteStateMachine.Transition(from: green, to: greenyellowred, through: "switch", condition: { (fsm) -> Bool in
+            fsm.variables.timerValueFor("t") == 6
+        }, action: { fsm in
+            fsm.variables.resetTimer("t")
+            self.turnOn(.yellow)
+        }),
+        FiniteStateMachine.Transition(from: greenyellowred, to: red, through: "switch", condition: { (fsm) -> Bool in
+            fsm.variables.timerValueFor("t") == 3
+        }, action: { fsm in
+            fsm.variables.resetTimer("t")
+            self.turnOn(.red)
+        })
+    ])
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.turnOn(.red)
+        fsm.variables.resetTimer("t")
+    }
 
-//        let bluetoothOn = FiniteStateMachine.State(name: "Bluetooth On")
-//        let bluetoothOff = FiniteStateMachine.State(name: "Bluetooth Off")
-//        let fsmBluetooth = FiniteStateMachine(initialState: bluetoothOn,
-//                                              transitions: [FiniteStateMachine.Transition(origin: bluetoothOff, input: "turn on bluetooth", destination: bluetoothOn),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "turn off bluetooth", destination: bluetoothOff),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "connect", destination: bluetoothOn),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "remove card", destination: bluetoothOn),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "unsuspend", destination: bluetoothOn),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "add card", destination: bluetoothOn),
-//                                                            FiniteStateMachine.Transition(origin: bluetoothOn, input: "suspend", destination: bluetoothOn)])
-//
-//        let noCards = FiniteStateMachine.State(name: "No Cards")
-//        let cardsAdded = FiniteStateMachine.State(name: "Cards Added")
-//        let cardsSuspended = FiniteStateMachine.State(name: "Suspended")
-//        let fsmCards = FiniteStateMachine(initialState: noCards,
-//                                          transitions: [FiniteStateMachine.Transition(origin: noCards, input: "add card", destination: cardsAdded),
-//                                                        FiniteStateMachine.Transition(origin: cardsAdded, input: "remove card", destination: noCards),
-//                                                        FiniteStateMachine.Transition(origin: cardsAdded, input: "suspend", destination: cardsSuspended),
-//                                                        FiniteStateMachine.Transition(origin: cardsSuspended, input: "unsuspend", destination: cardsAdded)])
-//
-//        let noDevice = FiniteStateMachine.State(name: "No Device")
-//        let connecting = FiniteStateMachine.State(name: "Connecting")
-//        let connected = FiniteStateMachine.State(name: "Connected")
-//        let fsmTPD = FiniteStateMachine(initialState: noDevice,
-//                                        transitions: [FiniteStateMachine.Transition(origin: noDevice, input: "connect", destination: connecting),
-//                                                      FiniteStateMachine.Transition(origin: connecting, input: "connect", destination: connected),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "add card", destination: connected),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "remove card", destination: connected),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "disconnect", destination: noDevice),
-//                                                      FiniteStateMachine.Transition(origin: connecting, input: "disconnect", destination: noDevice),
-//                                                      FiniteStateMachine.Transition(origin: connecting, input: "turn off bluetooth", destination: noDevice),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "turn off bluetooth", destination: noDevice),
-//                                                      FiniteStateMachine.Transition(origin: noDevice, input: "turn off bluetooth", destination: noDevice),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "suspend", destination: connected),
-//                                                      FiniteStateMachine.Transition(origin: connected, input: "unsuspend", destination: connected)])
-//
-//        var composedFsm = fsmTPD.composeInParallel(with: fsmBluetooth).composeInParallel(with: fsmCards)
-//
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "turn off bluetooth")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "turn on bluetooth")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "connect")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "connect")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "remove card")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "add card")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "turn off bluetooth")
-//        print(composedFsm.currentState)
-//        composedFsm.receive(input: "turn on bluetooth")
-        
-        
-
+    private func turnOn(_ light: Light) {
+        self.greenView.backgroundColor = UIColor.lightGray
+        self.redView.backgroundColor = UIColor.lightGray
+        self.yellowView.backgroundColor = UIColor.lightGray
+        switch light {
+        case .green:
+            self.greenView.backgroundColor = UIColor.green
+        case .yellow:
+            self.yellowView.backgroundColor = UIColor.yellow
+        case .red:
+            self.redView.backgroundColor = UIColor.red
+        }
     }
 
 }

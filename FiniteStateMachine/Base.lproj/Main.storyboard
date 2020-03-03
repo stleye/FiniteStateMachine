@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +10,56 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FiniteStateMachine" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jwg-cS-7X3">
+                                <rect key="frame" x="172" y="326" width="70" height="70"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="EUW-vW-lja"/>
+                                    <constraint firstAttribute="height" constant="70" id="btD-Hf-Pe3"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSQ-qn-eFT">
+                                <rect key="frame" x="172" y="510" width="70" height="74"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBF-4M-mQE">
+                                <rect key="frame" x="172" y="416" width="70" height="74"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="74" id="eZ5-63-hau"/>
+                                    <constraint firstAttribute="width" constant="70" id="u3T-7I-uND"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tSQ-qn-eFT" firstAttribute="height" secondItem="IBF-4M-mQE" secondAttribute="height" id="2MY-WQ-hjD"/>
+                            <constraint firstItem="Jwg-cS-7X3" firstAttribute="height" secondItem="IBF-4M-mQE" secondAttribute="height" multiplier="0.945946" id="50P-HR-JbN"/>
+                            <constraint firstItem="Jwg-cS-7X3" firstAttribute="width" secondItem="IBF-4M-mQE" secondAttribute="width" id="7i0-z8-ZWP"/>
+                            <constraint firstItem="Jwg-cS-7X3" firstAttribute="centerX" secondItem="IBF-4M-mQE" secondAttribute="centerX" id="MGn-el-3NK"/>
+                            <constraint firstItem="tSQ-qn-eFT" firstAttribute="width" secondItem="IBF-4M-mQE" secondAttribute="width" id="NIv-wf-euP"/>
+                            <constraint firstItem="tSQ-qn-eFT" firstAttribute="centerX" secondItem="IBF-4M-mQE" secondAttribute="centerX" id="ReT-y9-pn4"/>
+                            <constraint firstItem="IBF-4M-mQE" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Rlh-sm-tl4"/>
+                            <constraint firstItem="tSQ-qn-eFT" firstAttribute="top" secondItem="IBF-4M-mQE" secondAttribute="bottom" constant="20" id="crL-fC-3Pq"/>
+                            <constraint firstItem="IBF-4M-mQE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="wmj-cu-imT"/>
+                            <constraint firstItem="IBF-4M-mQE" firstAttribute="top" secondItem="Jwg-cS-7X3" secondAttribute="bottom" constant="20" id="zib-WT-nb2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="greenView" destination="tSQ-qn-eFT" id="hU0-7J-Uzv"/>
+                        <outlet property="redView" destination="Jwg-cS-7X3" id="1Vl-Cl-5qI"/>
+                        <outlet property="yellowView" destination="IBF-4M-mQE" id="hEg-6V-HXd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="86.383928571428569"/>
         </scene>
     </scenes>
 </document>
