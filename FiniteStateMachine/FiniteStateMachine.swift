@@ -83,7 +83,7 @@ class FiniteStateMachine {
     }
 
     @objc private func checkCurrentStateCondition() {
-        if let condition = self.currentState.condition, !condition(self.variables) {
+        if let condition = self.currentState.condition, !condition.isSatisfied((self.variables)) {
             self.leaveCurrentState()
         }
     }
@@ -126,6 +126,35 @@ extension FiniteStateMachine {
     typealias Event = (Transition) -> Void
 
     struct State: Hashable {
+
+        struct Condition {
+
+            private var condition: ((Variables) -> Bool)
+
+            static func createFrom(_ condition1: Condition?, and condition2: Condition?) -> Condition {
+                return Condition(condition: { variables in
+                    (condition1?.isSatisfied(variables) ?? true) && (condition2?.isSatisfied(variables) ?? true)
+                })
+            }
+
+            static func allwaysTrue() -> Condition {
+                return Condition { (variables) -> Bool in return true }
+            }
+
+            static func timer(_ name: String, is comparator: @escaping (Int, Int) -> Bool, than value: Int) -> Condition {
+                return Condition(condition: { variables in comparator(variables.timerValueFor(name), value) })
+            }
+
+            static func variable<T: Comparable>(_ name: String, is comparator: @escaping (T, T) -> Bool, than value: T) -> Condition {
+                return Condition(condition: { variables in comparator(variables.valueFor(name) as! T, value) })
+            }
+
+            func isSatisfied(_ variables: Variables) -> Bool {
+                return self.condition(variables)
+            }
+
+        }
+
         var hashValue: Int {
             return name.hashValue
         }
@@ -135,13 +164,13 @@ extension FiniteStateMachine {
         }
 
         private(set) var name: String
-        private(set) var condition: ((Variables) -> Bool)?
+        private(set) var condition: Condition?
 
         var description: String {
             return self.name
         }
 
-        init(_ name: String, condition: ((Variables) -> Bool)?) {
+        init(_ name: String, condition: Condition?) {
             self.name = name
             self.condition = condition
         }
@@ -151,9 +180,7 @@ extension FiniteStateMachine {
         }
 
         init(state1: State, state2: State) {
-            let condition = { (variables: Variables) in
-                return (state1.condition?(variables) ?? true) && (state2.condition?(variables) ?? true)
-            }
+            let condition = Condition.createFrom(state1.condition, and: state2.condition)
             self.init(state1.name + ", " + state2.name, condition: condition )
         }
     }

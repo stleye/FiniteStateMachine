@@ -17,7 +17,7 @@ class FiniteStateMachineTests: XCTestCase {
 
     lazy var finalState = FiniteStateMachine.State("Final")
 
-    lazy var stateWithCondition = FiniteStateMachine.State("State With Condition", condition: { _ in true })
+    lazy var stateWithCondition = FiniteStateMachine.State("State With Condition", condition: FiniteStateMachine.State.Condition.allwaysTrue())
 
     lazy var composedState = FiniteStateMachine.State(state1: initialState1, state2: finalState)
 
@@ -178,12 +178,8 @@ class FiniteStateMachineTests: XCTestCase {
     }
 
     func testConditionalStates() {
-        let alarmOff = FiniteStateMachine.State("alarm off", condition: { variables in
-            variables.intValueFor("counter") <= self.storeLimit
-        })
-        let alarmOn = FiniteStateMachine.State("alarm on", condition: { variables in
-            variables.intValueFor("counter") > self.storeLimit
-        })
+        let alarmOff = FiniteStateMachine.State("alarm off", condition: FiniteStateMachine.State.Condition.variable("counter", is: <=, than: self.storeLimit))
+        let alarmOn = FiniteStateMachine.State("alarm on", condition: FiniteStateMachine.State.Condition.variable("counter", is: >, than: self.storeLimit))
         let transition1 = FiniteStateMachine.Transition(from: alarmOff,
                                                         to: alarmOn,
                                                         through: "turn on alarm",
@@ -221,15 +217,14 @@ class FiniteStateMachineTests: XCTestCase {
         let alarmShouldBeTurnedOn = XCTestExpectation(description: "sprinkler turned on")
         let alarmShouldBeTurnedOff = XCTestExpectation(description: "sprinkler turned off")
         
-        let timeTurnedOn = 4
-        let timeTurnedOff = 10
+        let timeTurnedOn = 2
+        let timeTurnedOff = 5
 
-        let sprinklerOff = FiniteStateMachine.State("sprinkler off", condition: { variables in
-            variables.timerValueFor("t") < timeTurnedOff
-        })
-        let sprinklerOn = FiniteStateMachine.State("sprinkler on", condition: { variables in
-            variables.timerValueFor("u") < timeTurnedOn
-        })
+        let sprinklerOff = FiniteStateMachine.State("sprinkler off",
+                                                    condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: timeTurnedOff) )
+        let sprinklerOn = FiniteStateMachine.State("sprinkler on",
+                                                   condition: FiniteStateMachine.State.Condition.timer("u", is: <, than: timeTurnedOn) )
+
         let transition1 = FiniteStateMachine.Transition(from: sprinklerOff,
                                                         to: sprinklerOn,
                                                         through: "open tap",
