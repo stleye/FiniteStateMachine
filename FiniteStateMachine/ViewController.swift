@@ -19,34 +19,38 @@ class ViewController: UIViewController {
     @IBOutlet weak var redView: UIView!
     @IBOutlet weak var yellowView: UIView!
     @IBOutlet weak var greenView: UIView!
+    
+    private let timeInGreen = 6
+    private let timeInYellow = 2
+    private let timeInRed = 3
 
-    lazy var red = FiniteStateMachine.State("red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 4))
-    lazy var redyellowgreen = FiniteStateMachine.State("red yellow green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 2))
-    lazy var greenyellowred = FiniteStateMachine.State("green yellow red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 2))
-    lazy var green = FiniteStateMachine.State("green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: 6))
+    lazy var red = FiniteStateMachine.State("red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: timeInRed))
+    lazy var redyellowgreen = FiniteStateMachine.State("red yellow green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: timeInYellow))
+    lazy var greenyellowred = FiniteStateMachine.State("green yellow red", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: timeInYellow))
+    lazy var green = FiniteStateMachine.State("green", condition: FiniteStateMachine.State.Condition.timer("t", is: <, than: timeInGreen))
 
     lazy var fsm = FiniteStateMachine(initialState: red,
                                       transitions: [
         FiniteStateMachine.Transition(from: red, to: redyellowgreen, through: "switch", condition: { (fsm) -> Bool in
-            fsm.variables.timerValueFor("t") == 4
+            fsm.variables.timerValueFor("t") >= self.timeInRed
         }, action: { fsm in
             fsm.variables.resetTimer("t")
             self.turnOn(.yellow)
         }),
         FiniteStateMachine.Transition(from: redyellowgreen, to: green, through: "switch", condition: { (fsm) -> Bool in
-            fsm.variables.timerValueFor("t") == 3
+            fsm.variables.timerValueFor("t") >= self.timeInYellow
         }, action: { fsm in
             fsm.variables.resetTimer("t")
             self.turnOn(.green)
         }),
         FiniteStateMachine.Transition(from: green, to: greenyellowred, through: "switch", condition: { (fsm) -> Bool in
-            fsm.variables.timerValueFor("t") == 6
+            fsm.variables.timerValueFor("t") >= self.timeInGreen
         }, action: { fsm in
             fsm.variables.resetTimer("t")
             self.turnOn(.yellow)
         }),
         FiniteStateMachine.Transition(from: greenyellowred, to: red, through: "switch", condition: { (fsm) -> Bool in
-            fsm.variables.timerValueFor("t") == 3
+            fsm.variables.timerValueFor("t") >= self.timeInYellow
         }, action: { fsm in
             fsm.variables.resetTimer("t")
             self.turnOn(.red)
