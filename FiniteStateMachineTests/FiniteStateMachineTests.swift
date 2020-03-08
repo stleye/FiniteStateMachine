@@ -82,6 +82,23 @@ class FiniteStateMachineTests: XCTestCase {
         XCTAssertNotEqual(initialState1, finalState)
     }
 
+    func testFSMComposedStateShouldContainOtherStates() {
+        let state1 = FiniteStateMachine.State("state1")
+        let state2 = FiniteStateMachine.State("state2")
+        let state3 = FiniteStateMachine.State("state3")
+        let composedStateWithState1AndState2_1 = FiniteStateMachine.State(state1: state1, state2: state2)
+        let composedStateWithState1AndState2_2 = FiniteStateMachine.State(state1: state1, state2: state2)
+        let composedStateWithState2AndState1 = FiniteStateMachine.State(state1: state2, state2: state1)
+        let composedStateWithState1AndState2AndState3 = FiniteStateMachine.State(state1: composedStateWithState1AndState2_1, state2: state3)
+        XCTAssert(composedStateWithState1AndState2_1.contains(state1))
+        XCTAssert(composedStateWithState1AndState2_1.contains(state2))
+        XCTAssert(composedStateWithState1AndState2AndState3.contains(state1))
+        XCTAssert(composedStateWithState1AndState2AndState3.contains(state2))
+        XCTAssert(composedStateWithState1AndState2AndState3.contains(state3))
+        XCTAssertEqual(composedStateWithState1AndState2_1, composedStateWithState1AndState2_2)
+        XCTAssertNotEqual(composedStateWithState1AndState2_2, composedStateWithState2AndState1)
+    }
+
     func testFSMTransitionIsCorrectlyCreated() {
         XCTAssertNotNil(transition1.condition)
         XCTAssertEqual(transition1.origin, initialState1)
@@ -96,6 +113,16 @@ class FiniteStateMachineTests: XCTestCase {
         XCTAssertEqual(smallFSM1.initialState.name, "1")
         XCTAssertEqual(smallFSM1.currentState, smallFSM1.initialState)
         XCTAssertEqual(smallFSM1.variables.intValueFor("counter"), 3)
+    }
+
+    func testTransitionIsEqualToAnotherTransition() {
+        let t1 = FiniteStateMachine.Transition(from: initialState1, to: initialState2, through: "a")
+        let t2 = FiniteStateMachine.Transition(from: initialState1, to: initialState2, through: "a")
+        let t3 = FiniteStateMachine.Transition(from: initialState1, to: initialState2, through: "b")
+        let t4 = FiniteStateMachine.Transition(from: finalState, to: initialState2, through: "a")
+        XCTAssertEqual(t1, t2)
+        XCTAssertNotEqual(t2, t3)
+        XCTAssertNotEqual(t1, t4)
     }
 
     func testFSMTracesAreCorrect() {
@@ -216,7 +243,7 @@ class FiniteStateMachineTests: XCTestCase {
     func testTimedFSM() {
         let alarmShouldBeTurnedOn = XCTestExpectation(description: "sprinkler turned on")
         let alarmShouldBeTurnedOff = XCTestExpectation(description: "sprinkler turned off")
-        
+
         let timeTurnedOn = 2
         let timeTurnedOff = 5
 

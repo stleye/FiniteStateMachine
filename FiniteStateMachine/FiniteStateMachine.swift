@@ -90,7 +90,7 @@ class FiniteStateMachine {
 
     private func leaveCurrentState() {
         for transition in transitions where transition.origin == self.currentState {
-            //the if below may not correct,
+            //the if statement below may not correct,
             //the action in the transition may change the variables so it may be fine to take a transition to the same state in those cases
             if transition.destination != transition.origin {
                 if transition.condition(self) {
@@ -125,7 +125,7 @@ extension FiniteStateMachine {
     typealias Symbol = String
     typealias Event = (Transition) -> Void
 
-    struct State: Hashable {
+    class State: Hashable {
 
         struct Condition {
 
@@ -155,39 +155,50 @@ extension FiniteStateMachine {
 
         }
 
-        var hashValue: Int {
-            return name.hashValue
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(name)
         }
 
         static func == (lhs: FiniteStateMachine.State, rhs: FiniteStateMachine.State) -> Bool {
-            return lhs.name == rhs.name
+            return lhs.name == rhs.name && lhs.state1 == rhs.state1 && lhs.state2 == rhs.state2
         }
 
         private(set) var name: String
         private(set) var condition: Condition?
 
-        var description: String {
-            return self.name
-        }
+        private var state1: State?
+        private var state2: State?
 
         init(_ name: String, condition: Condition?) {
             self.name = name
             self.condition = condition
         }
 
-        init(_ name: String) {
+        convenience init(_ name: String) {
             self.init(name, condition: nil)
         }
 
-        init(state1: State, state2: State) {
+        convenience init(state1: State, state2: State) {
             let condition = Condition.createFrom(state1.condition, and: state2.condition)
             self.init(state1.name + ", " + state2.name, condition: condition )
+            self.state1 = state1
+            self.state2 = state2
+        }
+
+        func contains(_ state: State) -> Bool {
+            if self.state1 == nil && self.state2 == nil { return false }
+            if self.state1 == state { return true }
+            if self.state2 == state { return true }
+            return (self.state1?.contains(state) ?? false) || (self.state2?.contains(state) ?? false)
         }
     }
 
     struct Transition: Hashable {
-        var hashValue: Int {
-            return origin.hashValue ^ input.hashValue ^ destination.hashValue
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(origin)
+            hasher.combine(input)
+            hasher.combine(destination)
         }
 
         static func == (lhs: FiniteStateMachine.Transition, rhs: FiniteStateMachine.Transition) -> Bool {
