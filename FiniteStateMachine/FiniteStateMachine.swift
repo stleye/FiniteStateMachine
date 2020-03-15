@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FiniteStateMachine {
+@objcMembers public class FiniteStateMachine: NSObject {
 
     private(set) var variables: Variables
     private(set) var currentState: State
@@ -31,6 +31,7 @@ class FiniteStateMachine {
         self.transitions = transitions
         self.currentState = initialState
         self.variables = variables
+        super.init()
         self.variables.fsm = self
     }
 
@@ -122,7 +123,7 @@ class FiniteStateMachine {
 // Structs and Aliases
 extension FiniteStateMachine {
 
-    typealias Symbol = String
+    public typealias Symbol = Int
     typealias Event = (Transition) -> Void
 
     class State: Hashable {
