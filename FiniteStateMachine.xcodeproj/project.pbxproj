@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E0B5358241D01AD00E926B9 /* FiniteStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */; };
+		9E0B535B241D01D700E926B9 /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */; };
 		9E69BB5E2402E05100DA0064 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB5D2402E05100DA0064 /* AppDelegate.swift */; };
 		9E69BB602402E05100DA0064 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB5F2402E05100DA0064 /* SceneDelegate.swift */; };
-		9E69BB622402E05100DA0064 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB612402E05100DA0064 /* ViewController.swift */; };
+		9E69BB622402E05100DA0064 /* TrafficLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB612402E05100DA0064 /* TrafficLightViewController.swift */; };
 		9E69BB652402E05100DA0064 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB632402E05100DA0064 /* Main.storyboard */; };
 		9E69BB672402E05300DA0064 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB662402E05300DA0064 /* Assets.xcassets */; };
 		9E69BB6A2402E05300DA0064 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E69BB682402E05300DA0064 /* LaunchScreen.storyboard */; };
 		9E69BB722402E08400DA0064 /* FiniteStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */; };
-		9E93D872240BDAF000072342 /* FiniteStateMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9E93D874240BDAF000072342 /* PBXContainerItemProxy */ = {
+		9E0B5353241D00FE00E926B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E69BB522402E05100DA0064 /* Project object */;
 			proxyType = 1;
@@ -28,29 +29,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E0B534E241D00FE00E926B9 /* FiniteStateMachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiniteStateMachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FiniteStateMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E69BB5D2402E05100DA0064 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E69BB5F2402E05100DA0064 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9E69BB612402E05100DA0064 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9E69BB612402E05100DA0064 /* TrafficLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrafficLightViewController.swift; sourceTree = "<group>"; };
 		9E69BB642402E05100DA0064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9E69BB662402E05300DA0064 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E69BB692402E05300DA0064 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E69BB6B2402E05300DA0064 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiniteStateMachine.swift; sourceTree = "<group>"; };
-		9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiniteStateMachineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E93D871240BDAF000072342 /* FiniteStateMachineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiniteStateMachineTests.swift; sourceTree = "<group>"; };
 		9E93D873240BDAF000072342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		9E69BB572402E05100DA0064 /* Frameworks */ = {
+		9E0B534B241D00FE00E926B9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E93D86C240BDAF000072342 /* Frameworks */ = {
+		9E69BB572402E05100DA0064 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -73,7 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */,
-				9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */,
+				9E0B534E241D00FE00E926B9 /* FiniteStateMachineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,7 +84,7 @@
 			children = (
 				9E69BB5D2402E05100DA0064 /* AppDelegate.swift */,
 				9E69BB5F2402E05100DA0064 /* SceneDelegate.swift */,
-				9E69BB612402E05100DA0064 /* ViewController.swift */,
+				9E69BB612402E05100DA0064 /* TrafficLightViewController.swift */,
 				9E69BB712402E08400DA0064 /* FiniteStateMachine.swift */,
 				9E69BB632402E05100DA0064 /* Main.storyboard */,
 				9E69BB662402E05300DA0064 /* Assets.xcassets */,
@@ -105,6 +106,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9E0B534D241D00FE00E926B9 /* FiniteStateMachineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E0B5355241D00FE00E926B9 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */;
+			buildPhases = (
+				9E0B534A241D00FE00E926B9 /* Sources */,
+				9E0B534B241D00FE00E926B9 /* Frameworks */,
+				9E0B534C241D00FE00E926B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9E0B5354241D00FE00E926B9 /* PBXTargetDependency */,
+			);
+			name = FiniteStateMachineTests;
+			productName = FiniteStateMachineTests;
+			productReference = 9E0B534E241D00FE00E926B9 /* FiniteStateMachineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		9E69BB592402E05100DA0064 /* FiniteStateMachine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E69BB6E2402E05300DA0064 /* Build configuration list for PBXNativeTarget "FiniteStateMachine" */;
@@ -122,24 +141,6 @@
 			productReference = 9E69BB5A2402E05100DA0064 /* FiniteStateMachine.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9E93D86E240BDAF000072342 /* FiniteStateMachineTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9E93D878240BDAF000072342 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */;
-			buildPhases = (
-				9E93D86B240BDAF000072342 /* Sources */,
-				9E93D86C240BDAF000072342 /* Frameworks */,
-				9E93D86D240BDAF000072342 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9E93D875240BDAF000072342 /* PBXTargetDependency */,
-			);
-			name = FiniteStateMachineTests;
-			productName = FiniteStateMachineTests;
-			productReference = 9E93D86F240BDAF000072342 /* FiniteStateMachineTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -150,12 +151,12 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = HumileAnts;
 				TargetAttributes = {
-					9E69BB592402E05100DA0064 = {
-						CreatedOnToolsVersion = 11.3.1;
-					};
-					9E93D86E240BDAF000072342 = {
+					9E0B534D241D00FE00E926B9 = {
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 9E69BB592402E05100DA0064;
+					};
+					9E69BB592402E05100DA0064 = {
+						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
@@ -173,12 +174,19 @@
 			projectRoot = "";
 			targets = (
 				9E69BB592402E05100DA0064 /* FiniteStateMachine */,
-				9E93D86E240BDAF000072342 /* FiniteStateMachineTests */,
+				9E0B534D241D00FE00E926B9 /* FiniteStateMachineTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9E0B534C241D00FE00E926B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E69BB582402E05100DA0064 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -189,42 +197,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E93D86D240BDAF000072342 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9E0B534A241D00FE00E926B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E0B535B241D01D700E926B9 /* FiniteStateMachine.swift in Sources */,
+				9E0B5358241D01AD00E926B9 /* FiniteStateMachineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E69BB562402E05100DA0064 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9E69BB722402E08400DA0064 /* FiniteStateMachine.swift in Sources */,
-				9E69BB622402E05100DA0064 /* ViewController.swift in Sources */,
+				9E69BB622402E05100DA0064 /* TrafficLightViewController.swift in Sources */,
 				9E69BB5E2402E05100DA0064 /* AppDelegate.swift in Sources */,
 				9E69BB602402E05100DA0064 /* SceneDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9E93D86B240BDAF000072342 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9E93D872240BDAF000072342 /* FiniteStateMachineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9E93D875240BDAF000072342 /* PBXTargetDependency */ = {
+		9E0B5354241D00FE00E926B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9E69BB592402E05100DA0064 /* FiniteStateMachine */;
-			targetProxy = 9E93D874240BDAF000072342 /* PBXContainerItemProxy */;
+			targetProxy = 9E0B5353241D00FE00E926B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -248,6 +250,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9E0B5356241D00FE00E926B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AS2PM2F4J;
+				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
+			};
+			name = Debug;
+		};
+		9E0B5357241D00FE00E926B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3AS2PM2F4J;
+				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
+			};
+			name = Release;
+		};
 		9E69BB6C2402E05300DA0064 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,49 +440,18 @@
 			};
 			name = Release;
 		};
-		9E93D876240BDAF000072342 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3AS2PM2F4J;
-				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
-			};
-			name = Debug;
-		};
-		9E93D877240BDAF000072342 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3AS2PM2F4J;
-				INFOPLIST_FILE = FiniteStateMachineTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.humileants.FiniteStateMachineTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FiniteStateMachine.app/FiniteStateMachine";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9E0B5355241D00FE00E926B9 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E0B5356241D00FE00E926B9 /* Debug */,
+				9E0B5357241D00FE00E926B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9E69BB552402E05100DA0064 /* Build configuration list for PBXProject "FiniteStateMachine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -455,15 +466,6 @@
 			buildConfigurations = (
 				9E69BB6F2402E05300DA0064 /* Debug */,
 				9E69BB702402E05300DA0064 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9E93D878240BDAF000072342 /* Build configuration list for PBXNativeTarget "FiniteStateMachineTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9E93D876240BDAF000072342 /* Debug */,
-				9E93D877240BDAF000072342 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

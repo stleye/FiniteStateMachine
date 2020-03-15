@@ -157,31 +157,39 @@ extension FiniteStateMachine {
         }
 
         func hash(into hasher: inout Hasher) {
-            hasher.combine(name)
+            hasher.combine(id)
         }
 
         static func == (lhs: FiniteStateMachine.State, rhs: FiniteStateMachine.State) -> Bool {
-            return lhs.name == rhs.name && lhs.state1 == rhs.state1 && lhs.state2 == rhs.state2
+            return lhs.id == rhs.id && lhs.state1 == rhs.state1 && lhs.state2 == rhs.state2
         }
 
-        private(set) var name: String
+        private(set) var id: String
         private(set) var condition: Condition?
+        private(set)var name: String
 
         private var state1: State?
         private var state2: State?
 
-        init(_ name: String, condition: Condition?) {
+        init(_ id: String, _ name: String, condition: Condition? = nil) {
+            self.id = id
             self.name = name
             self.condition = condition
         }
 
-        convenience init(_ name: String) {
-            self.init(name, condition: nil)
+        convenience init(_ id: String) {
+            self.init(id, id, condition: nil)
+        }
+
+        convenience init(_ id: String, condition: Condition?) {
+            self.init(id, id, condition: condition)
         }
 
         convenience init(state1: State, state2: State) {
             let condition = Condition.createFrom(state1.condition, and: state2.condition)
-            self.init(state1.name + ", " + state2.name, condition: condition )
+            let newId = state1.id + ", " + state2.id
+            let newName = state1.name + ", " + state2.name
+            self.init(newId, newName, condition: condition )
             self.state1 = state1
             self.state2 = state2
         }
