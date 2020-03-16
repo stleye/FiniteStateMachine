@@ -8,5 +8,4 @@
 
 import Foundation
 
-print("Hello, World!")
-
+print (Conversor.create(from: Conversor.example))
