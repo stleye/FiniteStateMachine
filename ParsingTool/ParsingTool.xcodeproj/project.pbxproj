@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E4E7A27241E945100765C17 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A26241E945100765C17 /* main.swift */; };
-		9E4E7A2E241E946400765C17 /* Conversor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A2D241E946400765C17 /* Conversor.swift */; };
+		9E4E7A2E241E946400765C17 /* Examples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A2D241E946400765C17 /* Examples.swift */; };
 		9E4E7A30241FA02D00765C17 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A2F241FA02D00765C17 /* Constants.swift */; };
 		9E4E7A32241FA04600765C17 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A31241FA04600765C17 /* State.swift */; };
 		9E4E7A34241FA5CB00765C17 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E7A33241FA5CB00765C17 /* Extensions.swift */; };
@@ -34,7 +34,7 @@
 /* Begin PBXFileReference section */
 		9E4E7A23241E945100765C17 /* ParsingTool */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ParsingTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4E7A26241E945100765C17 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		9E4E7A2D241E946400765C17 /* Conversor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conversor.swift; sourceTree = "<group>"; };
+		9E4E7A2D241E946400765C17 /* Examples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Examples.swift; sourceTree = "<group>"; };
 		9E4E7A2F241FA02D00765C17 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		9E4E7A31241FA04600765C17 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		9E4E7A33241FA5CB00765C17 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				9ED0FFF62420379200491BCD /* Graph.swift */,
-				9E4E7A2D241E946400765C17 /* Conversor.swift */,
+				9E4E7A2D241E946400765C17 /* Examples.swift */,
 				9E4E7A33241FA5CB00765C17 /* Extensions.swift */,
 				9E4E7A2F241FA02D00765C17 /* Constants.swift */,
 				9E4E7A31241FA04600765C17 /* State.swift */,
@@ -152,7 +152,7 @@
 				9E4E7A3A241FA9E200765C17 /* Transitions.swift in Sources */,
 				9E4E7A27241E945100765C17 /* main.swift in Sources */,
 				9ED0FFF72420379200491BCD /* Graph.swift in Sources */,
-				9E4E7A2E241E946400765C17 /* Conversor.swift in Sources */,
+				9E4E7A2E241E946400765C17 /* Examples.swift in Sources */,
 				9E4E7A3C241FB35600765C17 /* FiniteStateMachines.swift in Sources */,
 				9E4E7A36241FA80B00765C17 /* States.swift in Sources */,
 				9E4E7A30241FA02D00765C17 /* Constants.swift in Sources */,

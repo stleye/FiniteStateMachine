@@ -8,6 +8,4 @@
 
 import Foundation
 
-//print (Conversor.create(from: Conversor.example))
-
-print(FiniteStateMachines(from: Conversor.example).print())
+print(FiniteStateMachines(from: Examples.example1).print())

@@ -8,11 +8,9 @@
 
 import Foundation
 
-class Conversor {
+class Examples {
 
-    private static let separatorBetweenStatesAndTransitions = "#"
-
-    static var example = """
+    static var example1 = """
     1 not connected
     2 connecting
     3 connected
@@ -41,14 +39,7 @@ class Conversor {
     7 8 send bytes { t = 0 }
     8 7 timeout [ t = 120 ]
     9 10 turn on bluetooth
-    10 9 turn of bluetooth
+    10 9 turn off bluetooth
     10 10 connect,  connected,  disconnect, add card, card added, remove card, suspend, suspended, unsuspended, unsuspend, card unsuspended, card suspended, card removed, send bytes, bytes sent
     """
-
-    static func create(from tgfStr: String) -> String {
-        let states = States(from: tgfStr).print()
-        let transitions = Transitions(from: tgfStr).print()
-        return states + String(Character.newLine) + transitions
-    }
-
 }

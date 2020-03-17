@@ -41,16 +41,14 @@ struct State {
     private func parseTGFLine(_ line: String) -> StateProperties {
         let idAndName = line.split(separator: Character.space, maxSplits: 1, omittingEmptySubsequences: false)
         let id = String(idAndName.first!)
-        var name = ""
         let nameAndCondition = String(idAndName.last!)
-        if let openingBracket = nameAndCondition.firstIndex(where: { $0 == "[" }) {
-            let closingBracket = nameAndCondition.firstIndex(where: { $0 == "]" })!
-            name = String(nameAndCondition[nameAndCondition.startIndex..<openingBracket])
-            //let condition = nameAndCondition[openingBracket..<closingBracket]
-        } else {
-            name = nameAndCondition
+        var condition: String?
+        let conditionRegex = "\\[(.*?)\\]"
+        let name = nameAndCondition.replacingOccurrences(of: conditionRegex, with: "", options: .regularExpression)
+        if let conditionRange = nameAndCondition.range(of: conditionRegex, options: .regularExpression) {
+            condition = String(nameAndCondition[conditionRange])
         }
-        return (id, name, nil)
+        return (id, name, condition)
     }
 
 }

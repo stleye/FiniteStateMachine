@@ -12,14 +12,14 @@ struct FiniteStateMachines {
 
     var graph = Graph<String>()
     
-    private var states: [State]
+    private var states: States
     private var transitions: Transitions
 
     init(from tgf: String) {
-        self.states = States(from: tgf).states
+        self.states = States(from: tgf)
         self.transitions = Transitions(from: tgf)
 
-        for state in states {
+        for state in states.states {
             graph.createVertex(data: state.id)
         }
 
@@ -32,12 +32,21 @@ struct FiniteStateMachines {
 
     func print() -> String {
         var result = ""
+        result += self.states.printEnum()
+        result += self.transitions.printEnum()
+        result += self.states.printStates()
+        result += printFsms()
+        return result
+    }
+
+    private func printFsms() -> String {
+        var result = ""
         var counter = 0
-        for fsm in fsms() {
+        for transitions in transitionsByComponent() {
             counter += 1
             result += String.newLine
             result += "var transitions\(counter) = [ \(String.newLine)"
-            result += fsm
+            result += transitions
             result += "]"
             result += String.newLine
             result += String.newLine
@@ -47,7 +56,7 @@ struct FiniteStateMachines {
         return result
     }
 
-    private func fsms() -> [String] {
+    private func transitionsByComponent() -> [String] {
         var components: [String] = []
         for component in graph.getComponents() {
             components.append(transitions.printTransitions(filteredBy: self.filterFor(component)))
@@ -56,7 +65,7 @@ struct FiniteStateMachines {
     }
 
     private func filterFor(_ component: [Graph<String>.Vertex]) -> ((Transition) -> Bool) {
-        let statesInComponent = self.states.filter({ component.map({ $0.data }).contains( $0.id! ) })
+        let statesInComponent = self.states.states.filter({ component.map({ $0.data }).contains( $0.id! ) })
         let filter: ((Transition) -> Bool) = { transition in
             return statesInComponent.contains(where: { state in
                 state.id == transition.originId || state.id == transition.destinationId
