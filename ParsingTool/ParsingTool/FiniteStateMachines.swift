@@ -50,7 +50,7 @@ struct FiniteStateMachines {
             result += "]"
             result += String.newLine
             result += String.newLine
-            result += "var fsm\(counter) = FiniteStateMachine(initialState: red, transitions: transitions)"
+            result += "var fsm\(counter) = FiniteStateMachine(initialState: red, transitions: transitions\(counter))"
             result += String.newLine
         }
         return result

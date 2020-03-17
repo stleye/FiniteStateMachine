@@ -32,10 +32,17 @@ struct Transition {
         let originState = "state\(self.originId!)"
         let destinationState = "state\(self.destinationId!)"
         for symbol in self.symbols {
-            let newSymbol = "\(Constants.fsmSymbols).\(symbol.camelized).rawValue"
+            let parsedSymbol = self.parseSymbol(symbol)
+            let newSymbol = "\(Constants.fsmSymbols).\(parsedSymbol.symbol.camelized).rawValue"
             result += String(Character.tab)
-            result += "FiniteStateMachine.Transition(from: \(originState), to: \(destinationState), through: \(newSymbol))"
-            result += ","
+            result += "FiniteStateMachine.Transition(from: \(originState), to: \(destinationState), through: \(newSymbol)"
+            if let action = parsedSymbol.action {
+                result += ", action: \(action)"
+            }
+            if let condition = parsedSymbol.condition {
+                result += ", condition: \(condition)"
+            }
+            result += "),"
             result += String(Character.newLine)
         }
         return result
@@ -51,6 +58,22 @@ struct Transition {
         let conditions = [""]
         let actions = [""]
         return (idOrigin, idDestination, symbols, conditions, actions)
+    }
+
+    private func parseSymbol(_ symbol: String) -> (symbol: String, condition: String?, action: String?) {
+        let conditionRegex = "\\[(.*?)\\]"
+        let actionRegex = "\\{(.*?)\\}"
+        var name = symbol.replacingOccurrences(of: conditionRegex, with: "", options: .regularExpression)
+        name = name.replacingOccurrences(of: actionRegex, with: "", options: .regularExpression)
+        var condition: String?
+        var action: String?
+        if let conditionRange = symbol.range(of: conditionRegex, options: .regularExpression) {
+            condition = String(symbol[conditionRange])
+        }
+        if let actionRange = symbol.range(of: actionRegex, options: .regularExpression) {
+            action = String(symbol[actionRange])
+        }
+        return (name, condition, action)
     }
 
 }
