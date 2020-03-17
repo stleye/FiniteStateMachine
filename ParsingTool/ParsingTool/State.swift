@@ -36,6 +36,8 @@ struct State {
         return "let state\(self.id!) = \(stateDefinition)"
     }
 
+    // Private
+
     private func parseTGFLine(_ line: String) -> StateProperties {
         let idAndName = line.split(separator: Character.space, maxSplits: 1, omittingEmptySubsequences: false)
         let id = String(idAndName.first!)

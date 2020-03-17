@@ -44,6 +44,8 @@ struct States {
         return result
     }
 
+    // Private
+
     private func parseStates(from tgfStr: String) -> [State] {
         var result: [State] = []
         for stateLine in self.getTGFStatesLines(from: tgfStr) {

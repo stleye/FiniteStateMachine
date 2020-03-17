@@ -33,10 +33,15 @@ struct Transition {
         let destinationState = "state\(self.destinationId!)"
         for symbol in self.symbols {
             let newSymbol = "\(Constants.fsmSymbols).\(symbol.camelized).rawValue"
-            result += "FiniteStateMachine.Transition(from: \(originState), to: \(destinationState), through: \(newSymbol))" + String(Character.newLine)
+            result += String(Character.tab)
+            result += "FiniteStateMachine.Transition(from: \(originState), to: \(destinationState), through: \(newSymbol))"
+            result += ","
+            result += String(Character.newLine)
         }
         return result
     }
+
+    // Private
 
     private func parseTGFLine(_ line: String) -> Properties {
         let idsAndSymbol = line.split(separator: Character.space, maxSplits: 2, omittingEmptySubsequences: false)

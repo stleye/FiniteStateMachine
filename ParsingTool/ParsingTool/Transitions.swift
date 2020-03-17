@@ -18,9 +18,9 @@ struct Transitions {
         self.transitions = self.parseTransitions(from: tgf)
     }
 
-    func printTransitions() -> String {
+    func printTransitions(filteredBy condition: ((Transition)->Bool) = { _ in true } ) -> String {
         var result = ""
-        for transition in self.transitions {
+        for transition in self.transitions where condition(transition) {
             result = result + transition.print()
         }
         return result
@@ -49,6 +49,8 @@ struct Transitions {
         result += self.printTransitions()
         return result
     }
+
+    // Private
 
     private func parseTransitions(from tgfStr: String) -> [Transition] {
         var result: [Transition] = []
